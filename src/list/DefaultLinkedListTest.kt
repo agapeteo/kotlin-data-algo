@@ -1,4 +1,4 @@
-package linkedlist
+package list
 
 import org.junit.jupiter.api.Test
 
@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions.*
 internal class DefaultLinkedListTest{
 
     @Test
-    fun emptyList(){
+    fun `empty list`(){
         // given
         // when
         val actual = DefaultLinkedList<Int>()
@@ -38,25 +38,7 @@ internal class DefaultLinkedListTest{
     }
 
     @Test
-    fun testList_getByIndex() {
-        // given
-        val list = DefaultLinkedList<Int>()
-
-        // when
-        list.apply {
-            append(1)
-            append(2)
-            append(3)
-        }
-
-        // then
-        assertEquals(1, list.get(0))
-        assertEquals(2, list.get(1))
-        assertEquals(3, list.get(2))
-    }
-
-    @Test
-    fun testList_getByIndex_empty() {
+    fun `get by index - empty`() {
         // given
         val list = DefaultLinkedList<Int>()
 
@@ -67,7 +49,7 @@ internal class DefaultLinkedListTest{
     }
 
     @Test
-    fun getByIndex() {
+    fun `get by index`() {
         // given
         val list = DefaultLinkedList<Int>()
 
@@ -86,7 +68,7 @@ internal class DefaultLinkedListTest{
     }
 
     @Test
-    fun insertAfterIndex() {
+    fun `insert after index`() {
         // given
         val list = DefaultLinkedList<Int>()
 
@@ -102,7 +84,7 @@ internal class DefaultLinkedListTest{
     }
 
     @Test
-    fun insertAfterIndex_multiple() {
+    fun `insert after index - multiple`() {
         // given
         val list = DefaultLinkedList<Int>()
 
@@ -120,7 +102,7 @@ internal class DefaultLinkedListTest{
     }
 
     @Test
-    fun deleteLast() {
+    fun `delete last`() {
         // given
         val list = DefaultLinkedList<Int>()
         list.apply {
@@ -139,7 +121,7 @@ internal class DefaultLinkedListTest{
     }
 
     @Test
-    fun deleteLast_inEmpty() {
+    fun `delete last in empty`() {
         // given
         val list = DefaultLinkedList<Int>()
         list.addLast(0)
@@ -155,7 +137,7 @@ internal class DefaultLinkedListTest{
     }
 
     @Test
-    fun deleteLast_addAndDelete() {
+    fun `delete last and add`() {
         // given
         val list = DefaultLinkedList<Int>()
         list.addLast(0)
@@ -171,7 +153,7 @@ internal class DefaultLinkedListTest{
     }
 
     @Test
-    fun deleteFirst() {
+    fun `delete first`() {
         // given
         val list = DefaultLinkedList<Int>()
         list.apply {
@@ -187,7 +169,7 @@ internal class DefaultLinkedListTest{
     }
 
     @Test
-    fun addFirst() {
+    fun `add first`() {
         // given
         val list = DefaultLinkedList<Int>()
 
@@ -203,7 +185,7 @@ internal class DefaultLinkedListTest{
     }
 
     @Test
-    fun addFirst_empty() {
+    fun `add first - empty`() {
         // given
         val list = DefaultLinkedList<Int>()
 
@@ -215,7 +197,7 @@ internal class DefaultLinkedListTest{
     }
 
     @Test
-    fun testReverseFromHead(){
+    fun `reverse from head`(){
         // given
         val list = DefaultLinkedList<Int>()
 
@@ -233,7 +215,7 @@ internal class DefaultLinkedListTest{
     }
 
     @Test
-    fun testReverseFromHead_empty(){
+    fun `reverse from head - empty`(){
         // given
         val list = DefaultLinkedList<Int>()
 
@@ -245,7 +227,7 @@ internal class DefaultLinkedListTest{
     }
 
     @Test
-    fun testReverseFromHead_two(){
+    fun `reverse from head - two`(){
         // given
         val list = DefaultLinkedList<Int>()
 

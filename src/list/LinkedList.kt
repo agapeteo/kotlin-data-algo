@@ -1,6 +1,6 @@
-package linkedlist
+package list
 
-interface LinkedList<out E> {
+interface LinkedList<out E>{
 
     fun elementByIndex(index: Int): E
 

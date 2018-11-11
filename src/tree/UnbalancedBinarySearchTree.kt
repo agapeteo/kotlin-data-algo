@@ -53,7 +53,7 @@ class UnbalancedBinarySearchTree<E: Comparable<E>> : BinarySearchTree<E> {
     override fun contains(value: E): Boolean{
         if (root == null) return false
 
-        return containsFromRoot(root, value);
+        return containsFromRoot(root, value)
     }
 
     private fun containsFromRoot(root: Node<E>?, value: E): Boolean {
@@ -61,10 +61,10 @@ class UnbalancedBinarySearchTree<E: Comparable<E>> : BinarySearchTree<E> {
 
         if (root.value == value) return true
 
-        if (value < root.value) {
-            return containsFromRoot(root.left, value)
+        return if (value < root.value) {
+            containsFromRoot(root.left, value)
         } else {
-            return containsFromRoot(root.right, value)
+            containsFromRoot(root.right, value)
         }
     }
 
@@ -85,7 +85,7 @@ class UnbalancedBinarySearchTree<E: Comparable<E>> : BinarySearchTree<E> {
     }
 
     override fun depth(): Int{
-        if (root == null) return 0;
+        if (root == null) return 0
 
         return depthNode(root!!, 0)
     }

@@ -1,7 +1,7 @@
-package linkedlist
+package list
 
 
-class DefaultLinkedList<E> : LinkedList<E> {
+class DefaultLinkedList<E> : LinkedList<E>, Stack<E>, Queue<E> {
 
     private var size: Int = 0
 
@@ -15,8 +15,43 @@ class DefaultLinkedList<E> : LinkedList<E> {
         return size
     }
 
+    @Throws(NoSuchElementException::class)
+    override fun peek(): E {
+        if (size == 0) throw NoSuchElementException()
+
+        return head!!.value
+    }
+
+    @Throws(NoSuchElementException::class)
+    override fun pop(): E {
+        if (size == 0) throw NoSuchElementException()
+
+        val result: E = getFirst()!!
+        deleteFirst()
+
+        return result
+    }
+
+    override fun push(element: E) {
+        addFirst(element)
+    }
+
     override fun addLast(element: E) {
         append(element)
+    }
+
+    override fun enqueue(element: E) {
+        addLast(element)
+    }
+
+    @Throws(NoSuchElementException::class)
+    override fun dequeue(): E {
+        if (size == 0) throw NoSuchElementException()
+
+        val result: E = getFirst()!!
+        deleteFirst()
+
+        return result
     }
 
     override fun append(element: E) {
@@ -123,7 +158,7 @@ class DefaultLinkedList<E> : LinkedList<E> {
         while (currentNode != null) {
             if (currentNode.value == element) return currentIndex
             currentIndex++
-            currentNode = currentNode?.next
+            currentNode = currentNode.next
         }
 
         return -1
