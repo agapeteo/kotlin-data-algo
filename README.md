@@ -7,11 +7,10 @@ Kotlin data structures and algorithms
 - Stack
 - Queue
 - BinarySearchTree
+- Heap
 
 In progress:
 - HashMap
-- Priority Queue
-- Heap
 - Graph
 
 
