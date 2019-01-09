@@ -8,11 +8,6 @@ Kotlin data structures and algorithms
 - Queue
 - BinarySearchTree
 - Heap
-
-In progress:
 - HashMap
-- Graph
 
 
-- basic sort algos
-- more advanced data structures and algorithms
