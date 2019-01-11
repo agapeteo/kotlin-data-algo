@@ -3,19 +3,15 @@ package map
 import java.util.*
 
 
-class HashMap<K, V> : Map<K, V> {
+class HashMap<K, V>(initSize: Int = 16, private val loadFactor: Double = 0.75) : Map<K, V> {
 
     data class Entry<K, V>(val key: K, var value: V)
-
     data class EntryList<K, V>(val entries: LinkedList<Entry<K, V>>)
 
-    private val buckets: MutableList<EntryList<K, V>>
+    private var buckets: MutableList<EntryList<K, V>> = mutableListOf()
+    private var entries = 0
 
     init {
-        val initSize = 16
-
-        buckets = mutableListOf()
-
         for (i in 0 until initSize){
             buckets.add(EntryList(LinkedList()))
         }
@@ -33,12 +29,31 @@ class HashMap<K, V> : Map<K, V> {
             entryToReplace.value = value
         } else {
             entryList.entries.add(Entry(key, value))
+            entries++
+
+            if ( entries.toDouble() / buckets.size > loadFactor) resize()
         }
         return result
     }
 
-    private fun indexFor(key: K): Int {
-        return key.hashCode() and 0x7fffffff % buckets.size // which is more effective than // Math.abs(key.hashCode()) % buckets.size
+    private fun resize() {
+        val newSize = buckets.size * 2
+        val newBuckets: MutableList<EntryList<K, V>> = mutableListOf()
+
+        for (i in 0 until newSize){
+            newBuckets.add(EntryList(LinkedList()))
+        }
+
+        entries().forEach { entry ->
+            val entryList = newBuckets[indexFor(entry.key, newSize)]
+            entryList.entries.add(entry)
+        }
+
+        buckets = newBuckets
+    }
+
+    private fun indexFor(key: K, size: Int = buckets.size): Int {
+        return key.hashCode() and 0x7fffffff % size // which is more effective than // Math.abs(key.hashCode()) % size
     }
 
     override fun get(key: K): V? {
