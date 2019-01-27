@@ -10,4 +10,6 @@ Kotlin data structures and algorithms
 - Heap
 - HashMap
 
-
+# Basic algorithms
+- String rotation
+- Matrix rotation
