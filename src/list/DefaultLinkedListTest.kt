@@ -4,10 +4,10 @@ import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
 
-internal class DefaultLinkedListTest{
+internal class DefaultLinkedListTest {
 
     @Test
-    fun `empty list`(){
+    fun `empty list`() {
         // given
         // when
         val actual = DefaultLinkedList<Int>()
@@ -197,7 +197,7 @@ internal class DefaultLinkedListTest{
     }
 
     @Test
-    fun `reverse from head`(){
+    fun `reverse from head`() {
         // given
         val list = DefaultLinkedList<Int>()
 
@@ -215,7 +215,7 @@ internal class DefaultLinkedListTest{
     }
 
     @Test
-    fun `reverse from head - empty`(){
+    fun `reverse from head - empty`() {
         // given
         val list = DefaultLinkedList<Int>()
 
@@ -227,7 +227,7 @@ internal class DefaultLinkedListTest{
     }
 
     @Test
-    fun `reverse from head - two`(){
+    fun `reverse from head - two`() {
         // given
         val list = DefaultLinkedList<Int>()
 
@@ -241,6 +241,52 @@ internal class DefaultLinkedListTest{
 
         // then
         assertEquals(listOf(1, 2), list.elements())
+    }
+
+    @Test
+    fun findKFromEnd() {
+        // given
+        val list: DefaultLinkedList<Int> = DefaultLinkedList()
+        for (i in 1..10) {
+            list.append(i)
+        }
+
+        // when
+        val actual = list.findKFromEnd(2)
+
+        // then
+        assertEquals(8, actual)
+    }
+
+    @Test
+    fun containsLoop_false() {
+        // given
+        val list: DefaultLinkedList<Int> = DefaultLinkedList()
+        for (i in 1..10) {
+            list.append(i)
+        }
+
+        // when // then
+        val actual = list.containsLoop()
+
+        // then
+        assertFalse(actual)
+    }
+
+    @Test
+    fun containsLoop_true() {
+        // given
+        val list: DefaultLinkedList<Int> = DefaultLinkedList()
+        for (i in 1..10) {
+            list.append(i)
+        }
+
+        // when // then
+        list.createLoop()
+        val actual = list.containsLoop()
+
+        // then
+        assertTrue(actual)
     }
 
 }

@@ -186,24 +186,24 @@ class DefaultLinkedList<E> : LinkedList<E>, Stack<E>, Queue<E> {
         return tail?.value
     }
 
-    fun reverseFromHead(){
+    fun reverseFromHead() {
         var prevNode: Node<E> = head ?: return
 
         var curNode: Node<E>? =
-            if (prevNode.next != null)
-                prevNode.next
-            else {
-                reverseTwoNodes()
-                return
-            }
+                if (prevNode.next != null)
+                    prevNode.next
+                else {
+                    reverseTwoNodes()
+                    return
+                }
 
         var nextNode: Node<E>? = curNode?.next
 
         swapHeadAndTail()
 
-        while(curNode != null){
+        while (curNode != null) {
 
-            if (prevNode.previous == null){
+            if (prevNode.previous == null) {
                 prevNode.next = null
             }
 
@@ -222,7 +222,7 @@ class DefaultLinkedList<E> : LinkedList<E>, Stack<E>, Queue<E> {
         }
     }
 
-    private fun swapHeadAndTail(){
+    private fun swapHeadAndTail() {
         val tmpHead = head
         head = tail
         tail = tmpHead
@@ -236,6 +236,49 @@ class DefaultLinkedList<E> : LinkedList<E>, Stack<E>, Queue<E> {
         tail?.previous = null
 
         swapHeadAndTail()
+    }
+
+    fun findKFromEnd(k: Int): E {
+        assert(size >= k) { "list size should be greater than k" }
+
+        var node = head
+        var fastNode = head
+        var idx = 0
+
+        // move fast node to k position
+        while (idx < k) {
+            fastNode = fastNode!!.next
+            idx++
+        }
+
+        while (fastNode!!.next != null) {
+            node = node!!.next
+            fastNode = fastNode.next
+        }
+
+        return node!!.value
+    }
+
+    /*
+    * Will create endless loop, so be very careful!!!
+     */
+    fun createLoop() {
+        tail!!.next = head
+    }
+
+    fun containsLoop(): Boolean {
+        if (size <= 1) return false
+
+        var slowNode = head
+        var fastNode = head
+
+        while (fastNode!!.next != null && fastNode!!.next!!.next != null) {
+            slowNode = slowNode!!.next
+            fastNode = fastNode!!.next!!.next
+
+            if (slowNode == fastNode) return true
+        }
+        return false
     }
 
 }
