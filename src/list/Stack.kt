@@ -1,6 +1,6 @@
 package list
 
-interface Stack<E> {
+interface Stack<E : Any?> {
 
     @Throws(NoSuchElementException::class)
     fun peek(): E
