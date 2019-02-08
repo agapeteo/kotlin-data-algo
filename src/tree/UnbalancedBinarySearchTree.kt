@@ -1,13 +1,13 @@
 package tree
 
 
-class UnbalancedBinarySearchTree<E: Comparable<E>> : BinarySearchTree<E> {
+class UnbalancedBinarySearchTree<E : Comparable<E>> : BinarySearchTree<E> {
 
     private var root: Node<E>? = null
 
     private data class Node<E>(val value: E, var left: Node<E>? = null, var right: Node<E>? = null)
 
-    override fun add(value: E){
+    override fun add(value: E) {
         if (root == null) {
             root = Node(value)
             return
@@ -17,14 +17,14 @@ class UnbalancedBinarySearchTree<E: Comparable<E>> : BinarySearchTree<E> {
     }
 
     private fun addNode(rootNode: Node<E>, value: E) {
-        if (value <= rootNode.value){
-            if (rootNode.left == null){
+        if (value <= rootNode.value) {
+            if (rootNode.left == null) {
                 rootNode.left = Node(value)
             } else {
                 addNode(rootNode.left!!, value)
             }
         } else {
-            if (rootNode.right == null){
+            if (rootNode.right == null) {
                 rootNode.right = Node(value)
             } else {
                 addNode(rootNode.right!!, value)
@@ -50,7 +50,7 @@ class UnbalancedBinarySearchTree<E: Comparable<E>> : BinarySearchTree<E> {
         addRootElements(root.right, list)
     }
 
-    override fun contains(value: E): Boolean{
+    override fun contains(value: E): Boolean {
         if (root == null) return false
 
         return containsFromRoot(root, value)
@@ -84,7 +84,7 @@ class UnbalancedBinarySearchTree<E: Comparable<E>> : BinarySearchTree<E> {
         addElement(node.right, list)
     }
 
-    override fun depth(): Int{
+    override fun depth(): Int {
         if (root == null) return 0
 
         return depthNode(root!!, 0)
@@ -97,5 +97,21 @@ class UnbalancedBinarySearchTree<E: Comparable<E>> : BinarySearchTree<E> {
         )
     }
 
+    fun toTree(sortedArray: Array<E>): BinarySearchTree<E> {
+        root = toTree(sortedArray, 0, sortedArray.size)
+        return this
+    }
+
+    private fun toTree(sortedArray: Array<E>, startIdx: Int, endIdx: Int): Node<E>? {
+        if (endIdx <= startIdx) return null
+
+        val midIdx = (endIdx - startIdx) / 2 + startIdx
+
+        val root = Node(sortedArray[midIdx])
+        root.left = toTree(sortedArray, startIdx, midIdx)
+        root.right = toTree(sortedArray, midIdx + 1, endIdx)
+
+        return root
+    }
 
 }

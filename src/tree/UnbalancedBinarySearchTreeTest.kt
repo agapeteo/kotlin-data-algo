@@ -3,10 +3,10 @@ package tree
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
-internal class UnbalancedBinarySearchTreeTest{
+internal class UnbalancedBinarySearchTreeTest {
 
     @Test
-    fun `add and check elements count`(){
+    fun `add and check elements count`() {
         // given
         val tree: BinarySearchTree<Int> = UnbalancedBinarySearchTree()
 
@@ -23,7 +23,7 @@ internal class UnbalancedBinarySearchTreeTest{
     }
 
     @Test
-    fun `ordered elements`(){
+    fun `ordered elements`() {
         // given
         val tree: BinarySearchTree<Int> = UnbalancedBinarySearchTree()
 
@@ -36,11 +36,11 @@ internal class UnbalancedBinarySearchTreeTest{
         }
 
         // then
-        assertEquals(listOf(1,2,5,12), tree.orderedElements())
+        assertEquals(listOf(1, 2, 5, 12), tree.orderedElements())
     }
 
     @Test
-    fun `contains value`(){
+    fun `contains value`() {
         // given
         val tree: BinarySearchTree<Int> = UnbalancedBinarySearchTree()
 
@@ -61,7 +61,7 @@ internal class UnbalancedBinarySearchTreeTest{
     }
 
     @Test
-    fun `should not contain in empty tree`(){
+    fun `should not contain in empty tree`() {
         // given
         // when
         val tree: BinarySearchTree<Int> = UnbalancedBinarySearchTree()
@@ -72,7 +72,7 @@ internal class UnbalancedBinarySearchTreeTest{
     }
 
     @Test
-    fun `depth - only root`(){
+    fun `depth - only root`() {
         // given
         val tree: BinarySearchTree<Int> = UnbalancedBinarySearchTree()
 
@@ -86,7 +86,7 @@ internal class UnbalancedBinarySearchTreeTest{
     }
 
     @Test
-    fun `depth - one level`(){
+    fun `depth - one level`() {
         // given
         val tree: BinarySearchTree<Int> = UnbalancedBinarySearchTree()
 
@@ -101,7 +101,7 @@ internal class UnbalancedBinarySearchTreeTest{
     }
 
     @Test
-    fun `depth - two levels`(){
+    fun `depth - two levels`() {
         // given
         val tree: BinarySearchTree<Int> = UnbalancedBinarySearchTree()
 
@@ -118,13 +118,25 @@ internal class UnbalancedBinarySearchTreeTest{
     }
 
     @Test
-    fun `depth - empty tree`(){
+    fun `depth - empty tree`() {
         // given
         // when
         val tree: BinarySearchTree<Int> = UnbalancedBinarySearchTree()
 
         // then
         assertEquals(0, tree.depth())
+    }
+
+    @Test
+    fun `sorted array to balanced tree`() {
+        // given
+        val example = arrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+
+        val tree = UnbalancedBinarySearchTree<Int>()
+        tree.toTree(example)
+
+        // then
+        assertEquals(listOf(6, 3, 2, 1, 5, 4, 9, 8, 7, 10), tree.elements())
     }
 
 }
