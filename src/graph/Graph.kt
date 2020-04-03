@@ -1,49 +1,76 @@
 package graph
 
+import java.util.*
+import kotlin.collections.HashSet
+
 
 class Graph<E> {
 
-    val graphData: HashMap<E, HashSet<E>> = HashMap()
+    val edges: MutableMap<E, HashSet<E>> = mutableMapOf()
 
     fun addEdge(from: E, to: E) {
-        graphData.computeIfAbsent(from) { HashSet() }.add(to)
+        edges.computeIfAbsent(from) { HashSet() }.add(to)
+    }
+
+    fun addBothEdges(from: E, to: E) {
+        addEdge(from, to)
+        addEdge(to, from)
     }
 
     fun elementsDfs(): List<E> {
-        val alreadyVisited = mutableSetOf<E>()
+        val visited = mutableSetOf<E>()
 
-        fun add(element: E, list: MutableList<E>) {
-            if (alreadyVisited.contains(element)) return
+        fun addToResult(element: E, list: MutableList<E>) {
+            if (visited.contains(element)) return
 
-            alreadyVisited.add(element)
+            visited.add(element)
             list.add(element)
-            graphData[element]?.forEach { add(it, list) }
+            edges[element]?.forEach { addToResult(it, list) }
         }
 
-        val result: MutableList<E> = mutableListOf()
-        graphData.keys.forEach { add(it, result) }
+        val result = mutableListOf<E>()
+        edges.keys.forEach { addToResult(it, result) }
         return result
     }
 
     fun elementsBfs(): List<E> {
-        val result: MutableList<E> = mutableListOf()
-        val alreadyVisited = mutableSetOf<E>()
+        val result = mutableListOf<E>()
+        val visited = mutableSetOf<E>()
 
-        graphData.keys.forEach { topElement ->
-            val queue = mutableListOf<E>()
+        edges.keys.forEach { topElement ->
+            val queue: Deque<E> = LinkedList()
 
             queue.add(topElement)
             while (queue.isNotEmpty()) {
-                val element = queue.removeAt(0)
-                if (!alreadyVisited.contains(element)) {
-                    alreadyVisited.add(element)
+                val element = queue.removeFirst()
+                if (!visited.contains(element)) {
+                    visited.add(element)
                     result.add(element)
-                    graphData[element]?.forEach { queue.add(it) }
+                    edges[element]?.forEach { queue.add(it) }
                 }
             }
         }
         return result
     }
 
+    fun connected(from: E, to: E): Boolean { // using bfs
+        if (from == to) return true
 
+        val alreadyVisited = mutableSetOf<E>().apply { add(from) }
+        val queue: Deque<E> = LinkedList()
+
+        edges[from]?.forEach { queue.add(it) }
+
+        while (queue.isNotEmpty()) {
+            val element = queue.removeFirst()
+
+            if (element == to) return true
+
+            if (!alreadyVisited.contains(element)) {
+                alreadyVisited.add(element)
+                edges[element]?.forEach { queue.add(it) }
+            }
+        }
+        return false
+    }
 }

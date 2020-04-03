@@ -37,6 +37,10 @@ class ThreeStacksArray<E>(initSize: Int = 30) {
             array[topIdx] = element
         }
 
+        override fun size(): Int {
+            return array.size
+        }
+
         fun moveIdx(increment: Int) {
             startIdx += increment
             endIdx += increment

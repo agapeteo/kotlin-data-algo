@@ -20,7 +20,7 @@ class MinStack<E : Comparable<E>> : Stack<E> {
     }
 
     override fun push(element: E) {
-        if (minStack.size() == 0 || element < minStack.peek()) {
+        if (minStack.size() == 0 || element <= minStack.peek()) {
             minStack.push(element)
         }
         return regularStack.push(element)
@@ -28,6 +28,10 @@ class MinStack<E : Comparable<E>> : Stack<E> {
 
     fun min(): E {
         return minStack.peek()
+    }
+
+    override fun size(): Int {
+        return regularStack.size
     }
 
 }

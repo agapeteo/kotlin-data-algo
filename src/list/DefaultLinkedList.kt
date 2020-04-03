@@ -1,15 +1,15 @@
 package list
 
 
-class DefaultLinkedList<E> : LinkedList<E>, Stack<E>, Queue<E> {
+class DefaultLinkedList<E : Comparable<E>> : LinkedList<E>, Stack<E>, Queue<E> {
 
-    private var size: Int = 0
+    var size: Int = 0
 
-    private var head: Node<E>? = null
+    var head: Node<E>? = null
 
-    private var tail: Node<E>? = null
+    var tail: Node<E>? = null
 
-    data class Node<E>(val value: E, var previous: Node<E>? = null, var next: Node<E>? = null)
+    data class Node<E>(var value: E, var previous: Node<E>? = null, var next: Node<E>? = null) {override fun toString(): String { return value.toString()}}
 
     override fun size(): Int {
         return size
@@ -280,5 +280,41 @@ class DefaultLinkedList<E> : LinkedList<E>, Stack<E>, Queue<E> {
         }
         return false
     }
+
+    fun partition(partition: E) {
+        assert(size > 2) { "partitioning should work with list with size greater than 2" }
+
+
+        var prevNode = head
+        var curNode = head!!.next
+        var nextNode = curNode!!.next
+
+        repeat(size - 1) {
+            if (curNode!!.value < partition) {
+                prevNode!!.next = nextNode
+                nextNode!!.previous = prevNode
+                size--
+
+                addFirst(curNode!!.value)
+
+                curNode = nextNode
+                nextNode = curNode!!.next
+            } else if (curNode!!.value > partition) {
+                prevNode!!.next = nextNode
+                nextNode!!.previous = prevNode
+                size--
+
+                addLast(curNode!!.value)
+
+                curNode = nextNode
+                nextNode = curNode!!.next
+            } else {
+                prevNode = curNode
+                curNode = nextNode
+                nextNode = nextNode!!.next
+            }
+        }
+    }
+
 
 }

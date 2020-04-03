@@ -10,4 +10,6 @@ interface Stack<E : Any?> {
 
     fun push(element: E)
 
+    fun size(): Int
+
 }

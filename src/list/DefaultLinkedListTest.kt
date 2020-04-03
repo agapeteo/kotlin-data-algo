@@ -289,4 +289,22 @@ internal class DefaultLinkedListTest {
         assertTrue(actual)
     }
 
+    @Test
+    fun partition(){
+        // given
+        val list = DefaultLinkedList<Int>()
+        list.append(5)
+        list.append(1)
+        list.append(1)
+        list.append(6)
+        list.append(5)
+        list.append(0)
+
+        // when
+        list.partition(5)
+
+        // then
+        list.elements().forEach { println(it) }
+    }
+
 }
