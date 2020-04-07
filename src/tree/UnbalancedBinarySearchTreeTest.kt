@@ -271,6 +271,41 @@ internal class UnbalancedBinarySearchTreeTest {
     }
 
     @Test
+    fun `swap`() {
+        val tree = UnbalancedBinarySearchTree<Int>()
+        tree.add(6)
+        tree.add(4)
+        tree.add(3)
+        tree.add(5)
+
+        tree.add(9)
+        tree.add(8)
+        tree.add(10)
+
+        assertEquals(listOf(3, 4, 5, 6, 8, 9, 10), tree.orderedElements())
+        tree.swap()
+        assertEquals(listOf(10, 9, 8, 6, 5, 4, 3), tree.orderedElements())
+    }
+
+    @Test
+    fun `swap ascending and descending`() {
+        val tree = UnbalancedBinarySearchTree<Int>()
+        tree.add(1)
+        tree.add(2)
+        tree.add(3)
+        tree.add(4)
+
+        // check ordered before swap
+        assertEquals(listOf(1, 2, 3, 4), tree.orderedElements())
+
+        tree.swap()
+        assertEquals(listOf(4, 3, 2, 1), tree.orderedElements())
+
+        tree.swap()
+        assertEquals(listOf(1, 2, 3, 4), tree.orderedElements())
+    }
+
+    @Test
     fun bla() {
         val base = 10
         var n = 1234

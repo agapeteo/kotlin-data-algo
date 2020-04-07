@@ -199,6 +199,20 @@ class UnbalancedBinarySearchTree<E : Comparable<E>> : BinarySearchTree<E> {
         return checkBst(root!!, null, null)
     }
 
+    fun swap() {
+        fun swapNode(node: Node<E>?) {
+            if (node == null) return
+
+            val tmpNode = node.left
+            node.left = node.right
+            node.right = tmpNode
+
+            swapNode(node.left)
+            swapNode(node.right)
+        }
+        swapNode(root)
+    }
+
 
     private fun balanced(): Boolean {
         if (root == null) return true
