@@ -93,6 +93,46 @@ class UnbalancedBinarySearchTree<E : Comparable<E>> : BinarySearchTree<E> {
         return depthNode(root!!, 0)
     }
 
+    override fun floor(element: E): E? {
+        fun floor(node: Node<E>): E? {
+            if (node.right == null) {
+                return node.value
+            }
+            return floor(node.right!!)
+        }
+        val node = findNode(root, element)
+        if (node?.left == null) {
+            return null
+        }
+        return floor(node.left!!)
+    }
+
+    override fun ceil(element: E): E? {
+        fun ceil(node: Node<E>): E? {
+            if (node.left == null) {
+                return node.value
+            }
+            return ceil(node.left!!)
+        }
+        val node = findNode(root, element)
+        if (node?.right == null) {
+            return null
+        }
+        return ceil(node.right!!)
+    }
+
+    private fun findNode(node: Node<E>?, element: E): Node<E>? {
+        if (node == null) return null
+
+        if (node.value == element) return node
+
+        return if (element > node.value) {
+            findNode(node.right, element)
+        } else {
+            findNode(node.left, element)
+        }
+    }
+
     private fun depthNode(node: Node<E>, curDepth: Int): Int {
         return max(
                 if (node.left == null) {

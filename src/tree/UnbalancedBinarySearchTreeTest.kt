@@ -227,6 +227,50 @@ internal class UnbalancedBinarySearchTreeTest {
     }
 
     @Test
+    fun `floor with balanced tree`() {
+        val tree = UnbalancedBinarySearchTree<Int>()
+        tree.add(6)
+        tree.add(4)
+        tree.add(3)
+        tree.add(5)
+
+        tree.add(9)
+        tree.add(8)
+        tree.add(10)
+
+        // when-then
+        assertEquals(5, tree.floor(6))
+        assertEquals(3, tree.floor(4))
+        assertEquals(null, tree.floor(3))
+        assertEquals(null, tree.floor(5))
+        assertEquals(8, tree.floor(9))
+        assertEquals(null, tree.floor(8))
+        assertEquals(null, tree.floor(10))
+    }
+
+    @Test
+    fun `ceil with balanced tree`() {
+        val tree = UnbalancedBinarySearchTree<Int>()
+        tree.add(6)
+        tree.add(4)
+        tree.add(3)
+        tree.add(5)
+
+        tree.add(9)
+        tree.add(8)
+        tree.add(10)
+
+        // when-then
+        assertEquals(8, tree.ceil(6))
+        assertEquals(5, tree.ceil(4))
+        assertEquals(null, tree.ceil(3))
+        assertEquals(null, tree.ceil(5))
+        assertEquals(10, tree.ceil(9))
+        assertEquals(null, tree.ceil(8))
+        assertEquals(null, tree.ceil(10))
+    }
+
+    @Test
     fun bla() {
         val base = 10
         var n = 1234
