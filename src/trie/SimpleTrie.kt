@@ -2,9 +2,9 @@ package trie
 
 class SimpleTrie : Trie {
 
-    private data class Node(val char: Char, val childrenMap: HashMap<Char, Node> = HashMap())
+    private data class Node(val childrenMap: HashMap<Char, Node> = HashMap(), var isLast: Boolean = false)
 
-    private val root = Node('*')
+    private val root = Node()
 
     override fun add(str: String) {
 
@@ -15,10 +15,12 @@ class SimpleTrie : Trie {
             var curNode = node.childrenMap[curChar]
 
             if (curNode == null) {
-                curNode = Node(curChar)
+                curNode = Node()
                 node.childrenMap[curChar] = curNode
             }
-
+            if (charIdx == str.length - 1) {
+                curNode.isLast = true
+            }
             add(charIdx + 1, curNode)
         }
         add(0, root)
@@ -26,14 +28,15 @@ class SimpleTrie : Trie {
 
     override fun contains(str: String): Boolean {
         fun contains(charIdx: Int, node: Node): Boolean {
-            if (charIdx >= str.length) return true
+            if (charIdx >= str.length) return false
 
             val curChar = str[charIdx]
             val curNode = node.childrenMap[curChar] ?: return false
+
+            if (charIdx == str.length - 1 && curNode.isLast) return true
 
             return contains(charIdx + 1, curNode)
         }
         return contains(0, root)
     }
-
 }
